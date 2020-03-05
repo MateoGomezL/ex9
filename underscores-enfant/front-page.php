@@ -26,10 +26,35 @@ get_header();
 
         endwhile; // End of the loop.
         
+        echo "<h1>Nos dernières conférences</h1>";
+
+        /* The 2nd Query (without global var) */
+        
+        $args2 = array(
+            "category_name" => "conference"
+        );
+        $query2 = new WP_Query( $args2 );
+        $CatID = get_the_category($query2->post->ID);
+
+        echo "<h1>". category_description($CatID[0]). "</h1>";
+        // The 2nd Loop
+        while ( $query2->have_posts() ) {
+            $query2->the_post();
+            echo '<li>' . get_the_title( $query2->post->ID ) . " - " . get_the_Date() . '</li>';
+            echo '<p>' . get_the_excerpt() . '</p>';
+            echo get_the_post_thumbnail(null, "thumbnail");
+        }
+        
+        // Restore original Post Data
+        wp_reset_postdata();
+
+
+        echo "<h1>Nos dernières nouvelles</h1>";
+
         // The Query
         $args = array(
             "category_name" => "nouvelle",
-            "posts_per_page" => 3,
+            "posts_per_page" => 5,
             "orderby" => "date",
             "order" => "DESC"
         );
@@ -39,7 +64,6 @@ get_header();
         while ( $query1->have_posts() ) {
             $query1->the_post();
             echo '<h4>' . get_the_title() . '</h4>';
-            echo '<p>' . get_the_excerpt() . '</p>';
 
         }
         
@@ -49,26 +73,6 @@ get_header();
         * wp_reset_query(). We just need to set the post data back up with
         * wp_reset_postdata().
         */
-        wp_reset_postdata();
-        
-        
-        /* The 2nd Query (without global var) */
-        
-        $args2 = array(
-            "category_name" => "evenement"
-        );
-        $query2 = new WP_Query( $args2 );
-        $CatID = get_the_category($query2->post->ID);
-
-        echo "<h1>". category_description($CatID[0]). "</h1>";
-        // The 2nd Loop
-        while ( $query2->have_posts() ) {
-            $query2->the_post();
-            echo '<li>' . get_the_title( $query2->post->ID ) . '</li>';
-            echo get_the_post_thumbnail(null, "thumbnail");
-        }
-        
-        // Restore original Post Data
         wp_reset_postdata();
         
         ?>

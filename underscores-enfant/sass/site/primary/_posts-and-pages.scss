@@ -1,3 +1,28 @@
+body{
+	font-family: 'Montserrat', sans-serif;
+	background-color: aliceblue;
+}
+
+.site-header{
+	display: none;
+}
+.entry-footer{
+	display: none;
+}
+
+.entry-title{
+	text-align: center;
+}
+
+.post-thumbnail{
+    text-align: center;
+}
+
+.wp-block-cgb-block-my-block{
+    background-color: rgb(124, 76, 156);
+    color: white;
+}
+
 .sticky {
 	display: block;
 }
