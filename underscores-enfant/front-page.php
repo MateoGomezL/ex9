@@ -40,9 +40,18 @@ get_header();
         // The 2nd Loop
         while ( $query2->have_posts() ) {
             $query2->the_post();
-            echo '<li>' . get_the_title( $query2->post->ID ) . " - " . get_the_Date() . '</li>';
-            echo '<p>' . get_the_excerpt() . '</p>';
-            echo get_the_post_thumbnail(null, "thumbnail");
+
+            echo '<div class= "globalConteneur">';
+
+                echo the_post_thumbnail(null, "thumbnail");
+
+                echo '<div>'; 
+                    echo '<li>' . get_the_title( $query2->post->ID ) . " - " . get_the_Date() . '</li>';
+                    echo '<p>' . get_the_excerpt() . '</p>';
+                echo '</div>';
+
+            echo '</div>';
+
         }
         
         // Restore original Post Data
@@ -61,11 +70,14 @@ get_header();
         $query1 = new WP_Query( $args );
         
         // The Loop
+        echo '<div class="ConteneurNouvelles">';
         while ( $query1->have_posts() ) {
             $query1->the_post();
             echo '<h4>' . get_the_title() . '</h4>';
+            echo the_post_thumbnail(null, "thumbnail");
 
         }
+        echo '</div>';
         
         /* Restore original Post Data 
         * NB: Because we are using new WP_Query we aren't stomping on the 
